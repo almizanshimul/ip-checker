@@ -11,11 +11,12 @@ const app = express();
 
 app.get("/", async (req, res) => {
     try {
-        const ipRes = await fetch("https://api.ipify.org/?format=json");
-        const ipData = await ipRes.json();
-        const myIp = ipData.ip;
+        // const ipRes = await fetch("https://api.ipify.org/?format=json");
+        // const ipData = await ipRes.json();
+        // const myIp = ipData.ip;
+        const userIp = req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
 
-        const geoRes = await fetch(`http://ip-api.com/json/${myIp}`);
+        const geoRes = await fetch(`http://ip-api.com/json/${userIp}`);
         const geoData = await geoRes.json();
         const countryCode = geoData.countryCode;
 
@@ -23,7 +24,7 @@ app.get("/", async (req, res) => {
         if (countryCode === "BD") {
             res.sendFile(path.join(__dirname, "public", "index.html"));
         } else {
-            res.send("You are not visiting from Bangladesh.");
+            res.json(`You are not visiting from Bangladesh. You are from ${geoData.Country}`);
         }
 
         // res.json({ ip: myIp, country: myCountry });
