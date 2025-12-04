@@ -21,10 +21,11 @@ app.get("/", async (req, res) => {
         const countryCode = geoData.countryCode;
 
         // console.log("IP:", myIp, "countryCode:", countryCode);
-        if (countryCode !== "BD") {
+        if (countryCode === "BD") {
             res.sendFile(path.join(__dirname, "public", "index.html"));
         } else {
-            res.json(`You are not visiting from Bangladesh. You are from ${geoData.country}`);
+            res.sendFile(path.join(__dirname, "public", "404.html"));
+            // res.json(`You are not visiting from Bangladesh. You are from ${geoData.country}`);
         }
 
         // res.json({ ip: myIp, country: myCountry });
