@@ -24,7 +24,7 @@ app.get("/", async (req, res) => {
         if (countryCode === "BD") {
             res.sendFile(path.join(__dirname, "public", "index.html"));
         } else {
-            res.json(`You are not visiting from Bangladesh. You are from ${geoData.Country}`);
+            res.json(`You are not visiting from Bangladesh. You are from ${geoData.country}`);
         }
 
         // res.json({ ip: myIp, country: myCountry });
