@@ -11,16 +11,17 @@
 <body>
     <main>
         <h1>Welcome to My Demo Website</h1>
-        <p>This website is running using Express.js 🚀</p>
+        <h3>You are form <span id="country"></span></h3>
         <p id="ip-addr"></p>
     </main>
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        fetch("https://api.ipify.org/?format=json")
+        fetch("/api/ip")
             .then(res => res.json())
             .then(data => {
-                document.getElementById("ip-addr").textContent = data.ip;
+                document.getElementById("ip-addr").textContent = data.query;
+                document.getElementById("country").textContent = data.country;
             })
             .catch(err => console.error("Error fetching IP:", err));
 

@@ -13,7 +13,7 @@ app.get("/", async (req, res) => {
     try {
         // const ipRes = await fetch("https://api.ipify.org/?format=json");
         // const ipData = await ipRes.json();
-        // const myIp = ipData.ip;
+        // const userIp = ipData.ip;
         const userIp = req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
 
         const geoRes = await fetch(`http://ip-api.com/json/${userIp}`);
@@ -21,7 +21,7 @@ app.get("/", async (req, res) => {
         const countryCode = geoData.countryCode;
 
         // console.log("IP:", myIp, "countryCode:", countryCode);
-        if (countryCode === "BD") {
+        if (countryCode !== "BD") {
             res.sendFile(path.join(__dirname, "public", "index.html"));
         } else {
             res.sendFile(path.join(__dirname, "public", "404.html"));
@@ -40,7 +40,7 @@ app.get("/", async (req, res) => {
 app.get("/api/ip", async (req, res) => {
     try {
         const userIp = req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
-        console.log(userIp);
+        // console.log(userIp);
         const geoRes = await fetch(`http://ip-api.com/json/${userIp}`);
         const geoData = await geoRes.json();
         res.json(geoData);
