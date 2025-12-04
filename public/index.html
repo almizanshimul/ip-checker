@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <h1>Welcome to My Demo Website</h1>
+        <p>This website is running using Express.js 🚀</p>
+        <p id="ip-addr"></p>
+    </main>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("https://api.ipify.org/?format=json")
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("ip-addr").textContent = data.ip;
+            })
+            .catch(err => console.error("Error fetching IP:", err));
+
+    });
+
+</script>
+
+
+</html>
